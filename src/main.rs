@@ -38,6 +38,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     let auth_key_id = env::var("AUTH_KEY_ID")?;
     let topic = env::var("TOPIC")?;
     let device_token = env::var("DEVICE_TOKEN")?;
+    let apns_host = env::var("APNS_HOST_NAME")?;
 
     let mut header = jwt::Header::new(Algorithm::ES256);
     header.kid = Some(auth_key_id);
@@ -49,7 +50,6 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     let client = Client::builder().default_headers(default_header).build()?;
 
-    let apns_host = "https://api.sandbox.push.apple.com";
 
     let stdin = io::stdin();
     let reader = BufReader::new(stdin);
